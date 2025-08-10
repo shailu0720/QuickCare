@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuickCare Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef4ff;
+      padding: 30px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e3a8a;
+      color: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logout-btn {
+      background: white;
+      color: #1e3a8a;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hospital-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .hospital-card {
+      height: 150px;
+      width: 100%;
+      border-radius: 16px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      animation: zoomIn 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .hospital-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(30, 58, 138, 0.5);
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hospital-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hospital-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to QuickCare 🏥</h1>
+    <div class="user-info">
+      <span id="userEmail">Logged in as:</span>
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+  </header>
+
+  <section class="hospital-grid" id="hospitalGrid">
+    <!-- JS will inject the hospital cards -->
+  </section>
+
+  <!-- ✅ Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+  <script>
+    // ✅ Your Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbjfKTtyRuv8BCHVoF4nQ3R0apS8DFp-w",
+      authDomain: "quickcare-16e49.firebaseapp.com",
+      projectId: "quickcare-16e49",
+      storageBucket: "quickcare-16e49.appspot.com",
+      messagingSenderId: "716596316222",
+      appId: "1:716596316222:web:1cd9794547113d92f4a96f"
+    };
+
+    // ✅ Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const userEmailSpan = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // ✅ Detect user
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log("Logged in as:", user.email);
+        userEmailSpan.textContent = "Logged in as: " + user.email;
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    // ✅ Logout function
+    logoutBtn.addEventListener("click", () => {
+      auth.signOut().then(() => {
+        console.log("Logged out ✅");
+        localStorage.clear();
+        window.location.href = "login.html";
+      }).catch(err => {
+        console.error("Logout error:", err.message);
+        alert("Logout failed: " + err.message);
+      });
+    });
+
+    // ✅ Hospital card generator
+    const hospitals = [
+      "Apollo", "Yashoda", "KIMS", "Owaisi",
+      "Care", "Rainbow", "Sunshine", "Continental"
+    ];
+
+    const hospitalImages = {
+      Apollo: "apollo.jpg",
+      Yashoda: "yashodalogo.png",
+      KIMS: "kimslogo.png",
+      Owaisi: "owaisilogo.avif",
+      Care: "carehospitallogo.jpeg",
+      Rainbow: "rainbowlogo.png",
+      Sunshine: "sunshinelogo.png",
+      Continental: "continentallogo.jpeg"
+    };
+
+    const grid = document.getElementById("hospitalGrid");
+
+    hospitals.forEach((hospital, index) => {
+      const card = document.createElement("div");
+      card.className = "hospital-card";
+      card.style.animationDelay = `${index * 0.1}s`;
+      card.style.backgroundImage = `url('${hospitalImages[hospital]}')`;
+
+      card.onclick = () => {
+        localStorage.setItem("selectedHospital", hospital);
+        window.location.href = "branches.html";
+      };
+
+      grid.appendChild(card);
+    });
+
+    window.selectHospital = function (hospitalName) {
+  localStorage.setItem("selectedHospital", hospitalName);
+  window.location.href = "branches.html";
+};
+
+
+
+
+  </script>
+</body>
+</html>
+

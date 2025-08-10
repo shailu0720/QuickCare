@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Appointment</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .header {
+      background-color: #0d6efd;
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    .appointment-form {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .form-label {
+      font-weight: 500;
+    }
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .time-slot {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .time-slot:hover {
+      background-color: #e9ecef;
+    }
+    .time-slot.selected {
+      background-color: #0d6efd;
+      color: white;
+      border-color: #0d6efd;
+    }
+    .back-btn {
+      margin: 20px 0;
+    }
+    .confirmation {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+    .confirmation-icon {
+      font-size: 4rem;
+      color: #198754;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <h1>Book Appointment</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="doctors.html" class="btn btn-outline-primary back-btn">← Back to Doctors</a>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="appointment-form" id="appointment-form">
+          <h4 class="mb-4">Appointment Details</h4>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Patient Name</label>
+                <input type="text" class="form-control" id="patient-name" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone-number" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Date of Appointment</label>
+            <input type="date" class="form-control" id="appointment-date" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Preferred Time</label>
+            <div class="time-slots">
+              <div class="time-slot" data-time="09:00 AM">09:00 AM</div>
+              <div class="time-slot" data-time="10:00 AM">10:00 AM</div>
+              <div class="time-slot" data-time="11:00 AM">11:00 AM</div>
+              <div class="time-slot" data-time="12:00 PM">12:00 PM</div>
+              <div class="time-slot" data-time="02:00 PM">02:00 PM</div>
+              <div class="time-slot" data-time="03:00 PM">03:00 PM</div>
+              <div class="time-slot" data-time="04:00 PM">04:00 PM</div>
+              <div class="time-slot" data-time="05:00 PM">05:00 PM</div>
+            </div>
+            <input type="hidden" id="selected-time" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Reason for Visit</label>
+            <textarea class="form-control" id="reason" rows="3"></textarea>
+          </div>
+
+          <div class="d-grid">
+            <button type="button" class="btn btn-primary" onclick="submitAppointment()">Book Appointment</button>
+          </div>
+        </div>
+
+        <div class="confirmation" id="confirmation">
+          <div class="confirmation-icon">
+            <i class="bi bi-check-circle-fill"></i>
+          </div>
+          <h3>Appointment Booked Successfully!</h3>
+          <p>Your appointment is confirmed on <strong id="confirmed-date"></strong> at <strong id="confirmed-time"></strong>.</p>
+          <p>A confirmation message has been sent to your registered email and phone number.</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+            <a href="branches.html" class="btn btn-primary">Back to Branches</a>
+            <a href="dashboard.html" class="btn btn-outline-primary">Go to Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Set minimum date to tomorrow
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('appointment-date').min = tomorrow.toISOString().split('T')[0];
+
+    // Time slot selection
+    document.querySelectorAll('.time-slot').forEach(slot => {
+      slot.addEventListener('click', function () {
+        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('selected-time').value = this.getAttribute('data-time');
+      });
+    });
+
+    // Submit appointment
+    function submitAppointment() {
+      const patientName = document.getElementById('patient-name').value;
+      const phoneNumber = document.getElementById('phone-number').value;
+      const email = document.getElementById('email').value;
+      const appointmentDate = document.getElementById('appointment-date').value;
+      const selectedTime = document.getElementById('selected-time').value;
+
+      if (!patientName || !phoneNumber || !email || !appointmentDate || !selectedTime) {
+        alert('Please fill all the required fields');
+        return;
+      }
+
+      const dateObj = new Date(appointmentDate);
+      const formattedDate = dateObj.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      document.getElementById('confirmed-date').textContent = formattedDate;
+      document.getElementById('confirmed-time').textContent = selectedTime;
+
+      document.getElementById('appointment-form').style.display = 'none';
+      document.getElementById('confirmation').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hospital Branches - QuickCare</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef4ff;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h2 {
+      color: #1e3a8a;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+
+    
+.back-btn {
+  display: inline-block;
+  margin: 20px;
+  padding: 10px 20px;
+  background-color: #ffffff30;
+  color: #c41c1cc2;
+  border: 1px solid #ffffff50;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #ffffff50;
+  color: #000;
+}
+
+
+
+
+    .branch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+   .branch-card {
+  position: relative;
+  aspect-ratio: 16 / 9; /* Keeps nice shape */
+  width: 300px;
+  height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  margin: 15px;
+  background-color: #fff;
+  transition: transform 0.3s ease; /* Zoom card */
+  cursor: pointer;
+}
+
+.branch-card:hover {
+  transform: scale(1.05); /* 💥 Zoom-in on hover */
+}
+
+.branch-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* keeps image beautiful */
+  transition: transform 0.3s ease;
+}
+
+.branch-card:hover img {
+  transform: scale(1.1); /* extra zoom for image */
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.4); /* soft black */
+  backdrop-filter: blur(4px);    /* soft blur */
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px black;
+}
+    
+.overlay {
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.branch-card:hover .overlay {
+  opacity: 1;
+}
+  </style>
+</head>
+<body>
+
+  <h2 id="branchTitle">Branches</h2>
+  <div class="branch-grid" id="branchContainer"></div>
+
+
+
+
+
+<script>
+  function goToDoctors(branchName) {
+    localStorage.setItem('selectedBranch', branchName);
+    window.location.href = 'doctors.html';
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    const hospital = localStorage.getItem("selectedHospital");
+    document.getElementById("branchTitle").textContent = hospital + " Branches";
+
+    const branches = {
+      Apollo: ["Jubilee Hills", "Secunderabad", "Banjara Hills"],
+      Yashoda: ["Malakpet", "Somajiguda", "Secunderabad"],
+      KIMS: ["Begumpet", "Kondapur"],
+      Owaisi: ["Kanchanbagh"],
+      Care: ["HiTech City", "Banjara Hills"],
+      Rainbow: ["LB Nagar", "Kondapur"],
+      Sunshine: ["Secunderabad", "Gachibowli"],
+      Continental: ["Financial District"]
+    };
+
+    const branchImages = {
+      "Apollo - Jubilee Hills": "apollojubilee.webp",
+      "Apollo - Secunderabad": "apollosecunderabad.jpeg",
+      "Apollo - Banjara Hills": "apollobanjara.jpeg",
+      "Yashoda - Malakpet": "Yashoda-Malakpet.jpeg",
+      "Yashoda - Somajiguda": "Yashoda-Somajiguda.jpeg",
+      "Yashoda - Secunderabad": "Yashoda-sec.jpeg",
+      "KIMS - Begumpet": "Kims-begumpet.jpeg",
+      "KIMS - Kondapur": "kims-kondapur.jpeg",
+      "Owaisi - Kanchanbagh": "owaisi.jpeg",
+      "Care - HiTech City": "care-hitech.jpeg",
+      "Care - Banjara Hills": "care-bh.jpeg",
+      "Rainbow - LB Nagar": "rainbow-lbn.jpeg",
+      "Rainbow - Kondapur": "rainbow-kondapur.jpeg",
+      "Sunshine - Secunderabad": "sunshine-sec.jpeg",
+      "Sunshine - Gachibowli": "sunshine-gch.jpeg",
+      "Continental - Financial District": "continental-fd.jpeg"
+    };
+
+    const container = document.getElementById("branchContainer");
+
+    if (branches[hospital]) {
+      branches[hospital].forEach(branch => {
+        const card = document.createElement("div");
+        card.className = "branch-card";
+
+        const fullKey = `${hospital} - ${branch}`;
+        const imagePath = branchImages[fullKey] || "default.jpg";
+        card.style.backgroundImage = `url('images/${imagePath}')`;
+
+        const overlay = document.createElement("div");
+        overlay.className = "overlay";
+        overlay.textContent = fullKey;
+        card.appendChild(overlay);
+
+        card.onclick = () => {
+          localStorage.setItem("selectedBranch", branch);
+          window.location.href = "doctors.html";
+        };
+
+        container.appendChild(card);
+      });
+    } else {
+      container.innerHTML = "<p>No branches found for this hospital.</p>";
+    }
+
+
+// localStorage.setItem("selectedBranch", "Apollo - Banjara Hills");
+// window.location.href = "doctors.html";
+function selectBranch(branchName) {
+  localStorage.setItem("selectedBranch", branchName);
+  window.location.href = "doctors.html";
+}
+
+
+  </script>
+
+  <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+
+</body>
+</html>

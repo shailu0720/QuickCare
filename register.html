@@ -1,0 +1,111 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - QuickCare</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <div class="auth-container">
+    <h1>🚑 QuickCare</h1>
+    <h2>Create Account</h2>
+    <input type="email" id="registerEmail" placeholder="Email" required />
+    <input type="password" id="registerPassword" placeholder="Password" required />
+    <button onclick="registerUser()">Register</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - QuickCare</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    input, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<form id="registerForm">
+  <h2>Register</h2>
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <button type="submit">Register</button>
+</form>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAbjfKTtyRuv8BCHVoF4nQ3R0apS8DFp-w",
+    authDomain: "quickcare-16e49.firebaseapp.com",
+    projectId: "quickcare-16e49",
+    storageBucket: "quickcare-16e49.firebasestorage.app",
+    messagingSenderId: "716596316222",
+    appId: "1:716596316222:web:1cd9794547113d92f4a96f"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+
+  const registerForm = document.getElementById("registerForm");
+  registerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        alert("🎉 Registered successfully!");
+        window.location.href = "login.html";
+      })
+      .catch((error) => {
+        alert("❌ " + error.message);
+      });
+  });
+ 
+</script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+
+<!-- Link your app.js -->
+<script src="app.js"></script>
+
+</body>
+</html>
+

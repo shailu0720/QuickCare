@@ -1,0 +1,164 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7fcff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #0077b6;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.btn.primary {
+  background: #0077b6;
+  color: white;
+}
+
+.btn.secondary {
+  background: #caf0f8;
+  color: #0077b6;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.auth-container {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 10vh;
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.auth-container h1 {
+  color: #0077b6;
+  margin-bottom: 0.5rem;
+}
+
+.auth-container h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 0.9rem;
+  margin-top: 1rem;
+  border-radius: 30px;
+  border: none;
+  background: #0077b6;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-container button:hover {
+  transform: scale(1.05);
+}
+
+.auth-container p {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+
+
+.hospital-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+}
+
+.hospital-container h2 {
+  color: #0077b6;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+}
+
+.hospital-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+}
+
+.hospital-list {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.hospital-card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #e0f7ff;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem;
+  color: #004b75;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: 0.2s ease-in-out;
+}
+
+.hospital-card span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.hospital-card:hover {
+  background: #bdeeff;
+  transform: scale(1.02);
+}

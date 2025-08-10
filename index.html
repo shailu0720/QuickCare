@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuickCare - Hospital Pre-Booking</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #dff6ff, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #1a2a33;
+    }
+
+    .hero {
+      text-align: center;
+      background: white;
+      padding: 3rem 2rem;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #0077b6;
+      margin-bottom: 0.5rem;
+      animation: popin 0.5s ease-out;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.9rem 1.6rem;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .btn.primary {
+      background: #0077b6;
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 119, 182, 0.3);
+    }
+
+    .btn.secondary {
+      background: #e0f7ff;
+      color: #0077b6;
+      border: 2px solid #0077b6;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes popin {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="logo">🚑 QuickCare</div>
+    <p class="tagline">Your health, your time. <br>Skip the line. Book anytime.</p>
+    <div class="btn-group">
+      <a href="login.html" class="btn primary">Login</a>
+      <a href="register.html" class="btn secondary">Register</a>
+
+
+    </div>
+  </div>
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+
+<!-- Your Custom JS -->
+<script src="app.js"></script>
+
+</body>
+</html>
+

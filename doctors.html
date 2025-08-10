@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctors</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 30px;
+      background: #f0f8ff;
+      color: #2c3e50;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #1e90ff;
+    }
+
+    .doctor-card {
+      background: #fff;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .doctor-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .doctor-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .specialization {
+      font-size: 14px;
+      color: #666;
+    }
+
+    #noDoctors {
+      font-size: 18px;
+      color: #ff4d4d;
+      margin-top: 20px;
+    }
+    .available {
+  color: green;
+  font-weight: bold;
+}
+
+.busy {
+  color: red;
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+  <h2 id="branchName">Doctors</h2>
+  <div id="doctorList"></div>
+  <div id="noDoctors" style="display: none;">No doctors available.</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const selectedBranch = localStorage.getItem("selectedBranch");
+
+      const branchNameElement = document.getElementById("branchName");
+      if (selectedBranch) {
+        branchNameElement.innerText = `Doctors at ${selectedBranch}`;
+      } else {
+        branchNameElement.innerText = "No Branch Selected";
+      }
+
+      const doctorsData = {
+        "Jubilee Hills": [
+          { name: "Dr. Ramesh Sharma", specialization: "Cardiologist",experience: "2 years", availability: "Busy" },
+          { name: "Dr. Priya Iyer", specialization: "Dermatologist" ,experience: "1 year", availability: "Available"}
+        ],
+        "Madhapur": [
+          { name: "Dr. Rahul Mehta", specialization: "Orthopedic" ,experience: "2 years", availability: "Available"},
+          { name: "Dr. Sneha Das", specialization: "Gynecologist" ,experience: "3 years", availability: "Available"}
+        ],
+        "Banjara Hills": [
+          { name: "Dr. Ashwin Rao", specialization: "Neurologist" , experience: "6 years", availability: "Available"},
+          { name: "Dr. Neha Kapoor", specialization: "Pediatrician", experience: "5 years", availability: "Busy"}
+        ],
+        "Secunderabad": [
+        { name: "Dr. Sneha Reddy", specialization: "ENT Specialist", experience: "6 years", availability: "Available" },
+        { name: "Dr. Kiran Kumar", specialization: "Neurologist", experience: "10 years", availability: "Busy" }
+      ],
+
+"Malakpet": [
+  { name: "Dr. Anjali Deshmukh", specialization: "General Physician", experience: "6 years", availability: "Available" },
+  { name: "Dr. Sameer Reddy", specialization: "Dermatologist", experience: "9 years", availability: "Busy" }
+],
+"Somajiguda": [
+  { name: "Dr. Rekha Sharma", specialization: "Gynecologist", experience: "12 years", availability: "Available" },
+  { name: "Dr. Kunal Mehta", specialization: "Neurologist", experience: "10 years", availability: "Available" }
+],
+"Kondapur": [
+  { name: "Dr. Neeraja Iyer", specialization: "Oncologist", experience: "14 years", availability: "Busy" },
+  { name: "Dr. Rishi Kumar", specialization: "Orthopedic", experience: "8 years", availability: "Available" }
+],
+"Begumpet": [
+  { name: "Dr. Sneha Varma", specialization: "ENT Specialist", experience: "6 years", availability: "Busy" },
+  { name: "Dr. Manoj Patil", specialization: "Urologist", experience: "13 years", availability: "Available" }
+],
+"Kanchanbagh": [
+  { name: "Dr. Ayesha Siddiqua", specialization: "Psychiatrist", experience: "9 years", availability: "Available" },
+  { name: "Dr. Rahul Singh", specialization: "Nephrologist", experience: "11 years", availability: "Busy" }
+],
+"HiTech City": [
+  { name: "Dr. Meena Kapoor", specialization: "Dentist", experience: "5 years", availability: "Available" },
+  { name: "Dr. Aravind Prasad", specialization: "Endocrinologist", experience: "10 years", availability: "Busy" }
+],
+"Banjara hills": [
+  { name: "Dr. Shalini R", specialization: "Pulmonologist", experience: "7 years", availability: "Available" },
+  { name: "Dr. Vikram Naik", specialization: "Gastroenterologist", experience: "16 years", availability: "Busy" }
+],
+"LB Nagar": [
+  { name: "Dr. Nandini Rao", specialization: "Radiologist", experience: "8 years", availability: "Available" },
+  { name: "Dr. Tarun Shetty", specialization: "Physiotherapist", experience: "6 years", availability: "Busy" }
+],
+"Gachibowli": [
+  { name: "Dr. Zoya Khan", specialization: "Allergist", experience: "5 years", availability: "Available" },
+  { name: "Dr. Ramesh Gupta", specialization: "Hematologist", experience: "10 years", availability: "Busy" }
+],
+"Financial District": [
+  { name: "Dr. Pooja Jain", specialization: "Rheumatologist", experience: "12 years", availability: "Available" },
+  { name: "Dr. Satish Rawat", specialization: "Ophthalmologist", experience: "9 years", availability: "Busy" }
+]
+
+ };
+      
+      const doctorList = document.getElementById("doctorList");
+      const noDoctors = document.getElementById("noDoctors");
+
+      if (selectedBranch && doctorsData[selectedBranch]) {
+        const doctors = doctorsData[selectedBranch];
+        doctors.forEach((doc) => {
+          const card = document.createElement("div");
+          card.className = "doctor-card";
+          card.innerHTML = `
+          
+            <div class="doctor-name">${doc.name}</div>
+            <div class="specialization">${doc.specialization}</div>
+            <p><strong>Experience:</strong> ${doc.experience}</p>
+            <p><strong>Availability:</strong> 
+            <span class="${doc.availability === 'Available' ? 'available' : 'busy'}">
+              ${doc.availability}
+            </span>
+          </p>
+           <button onclick="bookAppointment('${doc.name}')">Book Appointment</button>
+          `;
+          doctorList.appendChild(card);
+        });
+      } else {
+        noDoctors.style.display = "block";
+        heading.textContent = "No hospital selected or doctors not found.";
+      }
+      window.bookAppointment = function(doctorName) {
+      localStorage.setItem("selectedDoctor", doctorName);
+      window.location.href = "appointment.html";
+    };
+    });
+  </script>
+
+<div style="text-align: center; margin-top: 30px;">
+  <button onclick="window.location.href='branches.html'">⬅️ Back to Branches</button>
+</div>
+
+
+
+</body>
+</html>
+

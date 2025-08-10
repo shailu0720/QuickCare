@@ -1,0 +1,188 @@
+
+
+<!--
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuickCare - Hospitals</title>
+  <style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    margin: 30px 0 10px;
+    color: #1e3a8a;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    padding: 30px;
+    max-width: 1400px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+    height: 220px; /* increased size */
+    font-size: 22px; /* bigger text */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #1e40af;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    background: #e0f2fe;
+  }
+
+ .apollo-card {
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)),
+                    url('apollo.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+
+
+
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      height: 180px;
+      font-size: 20px;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+  <h1>Select a Hospital</h1>
+
+  <div class="grid">
+    <div class="card" onclick="selectHospital('Apollo')"><a href="apollo.jpg"></a>Apollo</div></a>
+    <div class="card" onclick="selectHospital('Yashoda')">Yashoda</div>
+    <div class="card" onclick="selectHospital('KIMS')">KIMS</div>
+    <div class="card" onclick="selectHospital('Owaisi')">Owaisi</div>
+    <div class="card" onclick="selectHospital('Care Hospitals')">Care Hospitals</div>
+    <div class="card" onclick="selectHospital('Sunshine')">Sunshine</div>
+    <div class="card" onclick="selectHospital('Rainbow')">Rainbow</div>
+    <div class="card" onclick="selectHospital('Continental')">Continental</div>
+  </div>
+
+  <script>
+    function selectHospital(hospitalName) {
+      localStorage.setItem('selectedHospital', hospitalName);
+      window.location.href = 'doctors.html';
+    }
+  </script>
+
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuickCare - Apollo Card Test</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f0f8ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+      width: 300px;
+      height: 200px;
+      background-image: url('apollo.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 5px black;
+       position: relative;
+  overflow: hidden;
+    }
+
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  opacity: 0;
+  border-radius: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="card"></div>
+
+
+  <!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+
+<!-- Your Custom JS -->
+<script src="app.js"></script>
+
+</body>
+</html>
