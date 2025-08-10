@@ -48,7 +48,7 @@ QuickCare/
 
 
 ---
-
+<!--
 ## 📸 Screenshots
 "C:\Users\P UMA\OneDrive\Pictures\Screenshots\Screenshot 2025-08-10 201810.png"
 
@@ -63,3 +63,4 @@ QuickCare/
 
 ### 📅 Appointment Booking
 ![Appointment Screenshot](https://"C:\Users\P UMA\OneDrive\Pictures\Screenshots\Screenshot 2025-08-10 202026.png".com)
+-->
